@@ -112,8 +112,7 @@ subprojects {
                 resValue("string", "application_name", "@string/application_name_alpha")
 
                 if (isApp && !removeSuffix) {
-                    // This fork uses a different signing key from the installed Alpha.
-                    applicationIdSuffix = ".alpha.ondemand"
+                    applicationIdSuffix = ".alpha"
                 }
             }
 

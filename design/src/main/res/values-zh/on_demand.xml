@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="launch_name_alpha">Clash Meta 按需版</string>
-    <string name="application_name_alpha">Clash Meta 按需版</string>
     <string name="on_demand">按需连接</string>
     <string name="on_demand_enable">启用按需连接</string>
     <string name="on_demand_summary">家庭 Wi-Fi 自动断开，其他 Wi-Fi 和移动数据自动连接</string>
