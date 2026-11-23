@@ -33,15 +33,8 @@ class OnDemandService : Service() {
     private val settings by lazy { OnDemandSettings(this) }
     private var observed: Network? = null
     private var capabilities: NetworkCapabilities? = null
-    private var decision: Decision? = null
+    private var decision: NetworkDecision? = null
     private var registered = false
-
-    private enum class Decision(val message: Int) {
-        Home(DesignR.string.on_demand_at_home),
-        Away(DesignR.string.on_demand_away),
-        UnknownWifi(DesignR.string.on_demand_unknown_wifi),
-        Waiting(DesignR.string.on_demand_waiting)
-    }
 
     private val callback = object : ConnectivityManager.NetworkCallback(ConnectivityManager.NetworkCallback.FLAG_INCLUDE_LOCATION_INFO) {
         override fun onAvailable(network: Network) {
@@ -63,19 +56,13 @@ class OnDemandService : Service() {
 
     private fun update(value: NetworkCapabilities?) {
         capabilities = value
-        val next = when {
-            value == null -> Decision.Waiting
-            value.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                val raw = (value.transportInfo as? WifiInfo)?.ssid
-                when {
-                    raw == null || raw == WifiManager.UNKNOWN_SSID -> Decision.UnknownWifi
-                    raw.removeSurrounding("\"") in settings.homeNetworks -> Decision.Home
-                    else -> Decision.Away
-                }
-            }
-            value.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> Decision.Away
-            else -> Decision.Waiting
-        }
+        val rawSsid = (value?.transportInfo as? WifiInfo)?.ssid
+        val next = classifyNetwork(
+            wifi = value?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true,
+            cellular = value?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true,
+            ssid = rawSsid?.takeUnless { it == WifiManager.UNKNOWN_SSID },
+            homeNetworks = settings.homeNetworks
+        )
         if (next == decision) return
         decision = next
         handler.removeCallbacks(applyDecision)
@@ -89,19 +76,25 @@ class OnDemandService : Service() {
     private fun reconcile(verifyLater: Boolean) {
         if (!settings.enabled) return
         val current = decision ?: return
-        var message = current.message
-        val shouldConnect = current == Decision.Away
-        if (current == Decision.Home || shouldConnect) {
+        var message = when (current) {
+            NetworkDecision.Home -> DesignR.string.on_demand_at_home
+            NetworkDecision.Away -> DesignR.string.on_demand_away
+            NetworkDecision.UnknownWifi -> DesignR.string.on_demand_unknown_wifi
+            NetworkDecision.Waiting -> DesignR.string.on_demand_waiting
+        }
+        val shouldConnect = current == NetworkDecision.Away
+        if (current == NetworkDecision.Home || shouldConnect) {
             try {
                 if (!UiStore(this).enableVpn) {
                     message = DesignR.string.on_demand_vpn_mode
                 } else if (StatusClient(this).isRunning() != shouldConnect) {
-                    if (shouldConnect && startClashService() != null) {
+                    if (!verifyLater) {
+                        message = DesignR.string.on_demand_open_settings
+                    } else if (shouldConnect && startClashService() != null) {
                         message = DesignR.string.on_demand_open_settings
                     } else {
                         if (!shouldConnect) stopClashService()
-                        if (verifyLater) handler.postDelayed(verify, 4000)
-                        else message = DesignR.string.on_demand_open_settings
+                        handler.postDelayed(verify, 4000)
                     }
                 }
             } catch (_: RuntimeException) {
@@ -155,8 +148,8 @@ class OnDemandService : Service() {
 
     override fun onDestroy() {
         running = false
-        handler.removeCallbacksAndMessages(null)
         if (registered) connectivity.unregisterNetworkCallback(callback)
+        handler.removeCallbacksAndMessages(null)
         super.onDestroy()
     }
 

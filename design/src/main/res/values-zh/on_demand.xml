@@ -8,7 +8,7 @@
     <string name="on_demand_home">家庭 Wi-Fi 名称（SSID）</string>
     <string name="on_demand_save">保存</string>
     <string name="on_demand_location_needed">请打开系统定位，并允许 Clash 在使用期间获取精确位置，以便识别家庭 Wi-Fi。</string>
-    <string name="on_demand_vpn_mode">请先在网络设置中开启“路由系统流量”。</string>
+    <string name="on_demand_vpn_mode">请先在网络设置中开启“自动路由系统流量”。</string>
     <string name="on_demand_at_home">家庭 Wi-Fi · 自动断开</string>
     <string name="on_demand_away">移动数据或其他 Wi-Fi · 自动连接</string>
     <string name="on_demand_unknown_wifi">暂时无法读取 Wi-Fi 名称，保留当前连接状态。</string>
