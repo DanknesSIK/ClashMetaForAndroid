@@ -10,7 +10,8 @@ class RestartReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED, Intent.ACTION_MY_PACKAGE_REPLACED -> {
-                if (StatusProvider.shouldStartClashOnBoot)
+                // The network policy resumes when the app can read the SSID again.
+                if (!OnDemandSettings(context).enabled && StatusProvider.shouldStartClashOnBoot)
                     context.startClashService()
             }
         }

@@ -15,6 +15,10 @@ class StatusClient(private val context: Context) {
                 .build()
         }
 
+    fun isRunning(): Boolean = context.contentResolver.call(
+        uri, StatusProvider.METHOD_CURRENT_PROFILE, null, null
+    ) != null
+
     fun currentProfile(): String? {
         return try {
             val result = context.contentResolver.call(
