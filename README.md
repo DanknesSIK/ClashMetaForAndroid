@@ -10,6 +10,13 @@ Feature of [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/com.github.metacubex.clash.meta/)
 
+### Shared rules for Find N2 and FlClash
+
+- [Find N2 configuration and checked rule mirror](https://github.com/DanknesSIK/shadowrocket-adblock-auto/tree/main/clash-meta/find-n2)
+- [FlClash merge example and connection checks](https://github.com/DanknesSIK/shadowrocket-adblock-auto/tree/main/clash-meta/flclash)
+
+For Find N2, apply the documented helper to a local copy of the existing profile and reimport the output. The profile uses the shared mirror for PikPak and rejects the exact `adx.ads.heytapmobi.com` host. Check that PikPak has real nodes and verify the two PikPak endpoints before making the profile your default. On Windows, use explicit provider names in `use` and retain any existing Windows process routing. Rule updates are published by the mirror and fetched by imported profiles. APK updates follow this fork's build and release process.
+
 ### Requirement
 
 - Android 5.0+ (minimum)
