@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="on_demand">按需连接</string>
+    <string name="on_demand_enable">启用按需连接</string>
+    <string name="on_demand_summary">家庭 Wi-Fi 自动断开，其他 Wi-Fi 和移动数据自动连接</string>
+    <string name="on_demand_explanation">连上下面列出的家庭 Wi-Fi 时断开，切到其他 Wi-Fi 或移动数据时连接。Android 需要使用期间的精确位置权限来读取 Wi-Fi 名称。手机重启后，打开一次 Clash 即可恢复。</string>
+    <string name="on_demand_enter_name">填写 Wi-Fi 名称，每行一个</string>
+    <string name="on_demand_home">家庭 Wi-Fi 名称（SSID）</string>
+    <string name="on_demand_save">保存</string>
+    <string name="on_demand_location_needed">请打开系统定位，并允许 Clash 在使用期间获取精确位置，以便识别家庭 Wi-Fi。</string>
+    <string name="on_demand_vpn_mode">请先在网络设置中开启“自动路由系统流量”。</string>
+    <string name="on_demand_at_home">家庭 Wi-Fi · 自动断开</string>
+    <string name="on_demand_away">移动数据或其他 Wi-Fi · 自动连接</string>
+    <string name="on_demand_unknown_wifi">暂时无法读取 Wi-Fi 名称，保留当前连接状态。</string>
+    <string name="on_demand_waiting">等待 Wi-Fi 或移动数据</string>
+    <string name="on_demand_open_settings">当前规则未能生效，点此检查设置和 VPN 授权。</string>
+</resources>

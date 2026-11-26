@@ -22,7 +22,8 @@ class NetworkSettingsDesign(
     running: Boolean,
 ) : Design<NetworkSettingsDesign.Request>(context) {
     enum class Request {
-        StartAccessControlList
+        StartAccessControlList,
+        ConfigureOnDemand
     }
 
     private val binding = DesignSettingsCommonBinding
@@ -51,6 +52,12 @@ class NetworkSettingsDesign(
                     vpnDependencies.forEach {
                         it.enabled = uiStore.enableVpn
                     }
+                }
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                clickable(title = R.string.on_demand, summary = R.string.on_demand_summary) {
+                    clicked { requests.trySend(Request.ConfigureOnDemand) }
                 }
             }
 

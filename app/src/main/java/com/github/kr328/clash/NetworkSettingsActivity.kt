@@ -28,6 +28,8 @@ class NetworkSettingsActivity : BaseActivity<NetworkSettingsDesign>() {
                 }
                 design.requests.onReceive {
                     when (it) {
+                        NetworkSettingsDesign.Request.ConfigureOnDemand ->
+                            startActivity(OnDemandSettingsActivity::class.intent)
                         NetworkSettingsDesign.Request.StartAccessControlList ->
                             startActivity(AccessControlActivity::class.intent)
                     }

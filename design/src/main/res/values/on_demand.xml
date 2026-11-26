@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="on_demand">On-demand connection</string>
+    <string name="on_demand_enable">Enable on-demand connection</string>
+    <string name="on_demand_summary">Disconnect on home Wi-Fi and connect on other Wi-Fi or mobile data</string>
+    <string name="on_demand_explanation">Clash disconnects on the Wi-Fi networks listed below and connects on other Wi-Fi or mobile data. Android requires precise location while in use to read the Wi-Fi name. After restarting the phone, open Clash once to resume.</string>
+    <string name="on_demand_enter_name">Enter a Wi-Fi name, one per line</string>
+    <string name="on_demand_home">Home Wi-Fi names (SSID)</string>
+    <string name="on_demand_save">Save</string>
+    <string name="on_demand_location_needed">Enable device location and allow precise location while using Clash to identify home Wi-Fi.</string>
+    <string name="on_demand_vpn_mode">Enable “Route system traffic” in Network settings first.</string>
+    <string name="on_demand_at_home">Home Wi-Fi · automatic disconnection</string>
+    <string name="on_demand_away">Mobile data or other Wi-Fi · automatic connection</string>
+    <string name="on_demand_unknown_wifi">Wi-Fi name unavailable. Keeping the current connection.</string>
+    <string name="on_demand_waiting">Waiting for Wi-Fi or mobile data</string>
+    <string name="on_demand_open_settings">Could not apply the network rule. Tap to check settings and VPN permission.</string>
+</resources>

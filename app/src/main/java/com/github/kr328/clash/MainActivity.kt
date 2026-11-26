@@ -165,6 +165,14 @@ class MainActivity : BaseActivity<MainDesign>() {
         setupShortcuts()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && OnDemandSettings(this).enabled &&
+            !OnDemandService.running && canReadNetworkName()) {
+            OnDemandService.start(this)
+        }
+    }
+
     private fun setupShortcuts() {
         // Skip dynamic shortcut setup when the app icon is hidden.
         if (uiStore.hideAppIcon) return
